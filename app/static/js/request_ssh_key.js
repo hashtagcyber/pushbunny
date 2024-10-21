@@ -6,7 +6,7 @@ import {
 async function generateSshKey() {
     try {
         console.log("Starting SSH key generation");
-        const getOptions = await fetch('/request_ssh_key', {
+        const getOptions = await fetch('/ssh_keys/request_ssh_key', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ async function generateSshKey() {
         let credential = await get(options);
         console.log("Credential retrieved:", credential);
 
-        const result = await fetch('/sign_ssh_key', {
+        const result = await fetch('/ssh_keys/sign_ssh_key', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,10 +68,6 @@ async function generateSshKey() {
             `;
         } else {
             sshKeyResultElement.textContent = 'SSH key generation failed.';
-        }
-
-        if (result.certificate) {
-            await verifySshKey(result.certificate);
         }
     } catch (error) {
         console.error('Error during SSH key generation:', error);

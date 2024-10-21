@@ -7,7 +7,7 @@ async function register() {
     try {
         console.log("Starting registration/key addition");
         
-        const createOptions = await fetch('/register/begin', {
+        const createOptions = await fetch('/auth/register/begin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ async function register() {
         let credential = await create(options);
         console.log("Credential created:", credential);
 
-        const result = await fetch('/register/complete', {
+        const result = await fetch('/auth/register/complete', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

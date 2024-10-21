@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newName = input.value.trim();
                 if (newName && newName !== currentName) {
                     try {
-                        const response = await fetch('/edit_key_name', {
+                        const response = await fetch('/dashboard/edit_key_name', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',

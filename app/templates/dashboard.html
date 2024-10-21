@@ -19,7 +19,7 @@
                 <input type="checkbox" id="darkModeToggle">
                 <span class="slider round"></span>
             </label>
-            <a href="{{ url_for('logout') }}" class="button">Logout</a>
+            <a href="{{ url_for('auth.logout') }}" class="button">Logout</a>
         </nav>
     </header>
     <main>
@@ -39,7 +39,7 @@
                             <p>ID: {{ cred['credential_data'].credential_id.hex()[:8] }}...</p>
                         </div>
                         <div class="key-actions">
-                            <a href="{{ url_for('remove_key', credential_id=cred['credential_data'].credential_id.hex()) }}" class="button button-danger">Remove</a>
+                            <a href="{{ url_for('dashboard.remove_key', credential_id=cred['credential_data'].credential_id.hex()) }}" class="button button-danger">Remove</a>
                         </div>
                     </li>
                 {% endfor %}
@@ -48,7 +48,7 @@
                 <p>You haven't added any MFA keys yet.</p>
             {% endif %}
             <button id="registerButton" class="button button-primary">Add New Key</button>
-            <button id="testKeysButton" class="button">Test Keys</button>
+            <button id="authenticateButton" class="button">Test Keys</button>
             <button id="generateSshKeyButton" class="button button-primary">Generate SSH Key</button>
         </section>
         <div id="testResult" style="margin-top: 20px;"></div>

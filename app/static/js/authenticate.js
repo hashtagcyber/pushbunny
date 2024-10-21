@@ -3,10 +3,10 @@ import {
     parseRequestOptionsFromJSON,
 } from '/static/js/webauthn-json.browser-ponyfill.js';
 
-async function testKeys() {
+export async function authenticate() {
     try {
         console.log("Starting authentication");
-        const getOptions = await fetch('/authenticate/begin', {
+        const getOptions = await fetch('/auth/authenticate/begin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ async function testKeys() {
         let credential = await get(options);
         console.log("Credential retrieved:", credential);
 
-        const result = await fetch('/authenticate/complete', {
+        const result = await fetch('/auth/authenticate/complete', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -93,8 +93,8 @@ function ensureArrayBuffer(input) {
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    const testKeysButton = document.getElementById('testKeysButton');
-    if (testKeysButton) {
-        testKeysButton.addEventListener('click', testKeys);
+    const authenticateButton = document.getElementById('authenticateButton');
+    if (authenticateButton) {
+        authenticateButton.addEventListener('click', authenticate);
     }
 });
