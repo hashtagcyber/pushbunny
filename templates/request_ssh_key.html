@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request SSH Key - Pushbunny Auth</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/darkmode.js" defer></script>
+    <script type="module" src="/static/js/request_ssh_key.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Request SSH Key</h1>
+        <nav>
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider round"></span>
+            </label>
+            <a href="{{ url_for('dashboard') }}" class="button">Back to Dashboard</a>
+        </nav>
+    </header>
+    <main>
+        <button id="requestSshKeyButton" class="button button-primary">Request SSH Key</button>
+        <div id="result"></div>
+    </main>
+</body>
+</html>

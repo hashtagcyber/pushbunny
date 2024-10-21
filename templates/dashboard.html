@@ -9,6 +9,7 @@
     <script type="module" src="/static/js/register.js"></script>
     <script type="module" src="/static/js/authenticate.js"></script>
     <script type="module" src="/static/js/edit_key.js"></script>
+    <script type="module" src="/static/js/request_ssh_key.js"></script>
 </head>
 <body>
     <header>
@@ -48,8 +49,10 @@
             {% endif %}
             <button id="registerButton" class="button button-primary">Add New Key</button>
             <button id="testKeysButton" class="button">Test Keys</button>
+            <button id="generateSshKeyButton" class="button button-primary">Generate SSH Key</button>
         </section>
         <div id="testResult" style="margin-top: 20px;"></div>
+        <div id="sshKeyResult" style="margin-top: 20px;"></div>
     </main>
 </body>
 </html>
