@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Pushbunny Auth - Home</title>
   <link rel="stylesheet" href="/static/css/styles.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="/static/js/google-signin.js"></script>
+  <script src="/static/js/darkmode.js" defer></script>
 </head>
 <body>
-  <h1>Welcome to Pushbunny Auth</h1>
-  <nav>
-    <ul>
-      <li><a href="/register">Register</a></li>
-      <li><a href="/authenticate">Authenticate</a></li>
-    </ul>
-  </nav>
+  <header>
+    <h1>Welcome to Pushbunny Auth</h1>
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider round"></span>
+    </label>
+  </header>
+  <main>
+    <p>Please sign in with your Google account to continue.</p>
+    <div id="g_id_onload"
+         data-client_id="{{ config['GOOGLE_CLIENT_ID'] }}"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse"
+         data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin"
+         data-type="standard"
+         data-shape="rectangular"
+         data-theme="outline"
+         data-text="signin_with"
+         data-size="large"
+         data-logo_alignment="left">
+    </div>
+  </main>
 </body>
 </html>

@@ -3,9 +3,7 @@ import {
     parseRequestOptionsFromJSON,
 } from '/static/js/webauthn-json.browser-ponyfill.js';
 
-async function authenticate() {
-    const email = document.getElementById('email').value;
-    
+async function testKeys() {
     try {
         console.log("Starting authentication");
         const getOptions = await fetch('/authenticate/begin', {
@@ -13,7 +11,7 @@ async function authenticate() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({email: email}),
+            body: JSON.stringify({}),
             credentials: 'same-origin'
         }).then(res => {
             if (!res.ok) {
@@ -27,12 +25,10 @@ async function authenticate() {
 
         console.log("Parsed options:", options);
 
-        // Convert base64url to ArrayBuffer for challenge and allowCredentials if needed
         options.publicKey.challenge = ensureArrayBuffer(options.publicKey.challenge);
         if (options.publicKey.allowCredentials) {
             options.publicKey.allowCredentials = options.publicKey.allowCredentials.map(cred => {
                 cred.id = ensureArrayBuffer(cred.id);
-                // Remove transports if it's not present
                 if (!cred.transports) {
                     delete cred.transports;
                 }
@@ -61,10 +57,19 @@ async function authenticate() {
         });
 
         console.log("Authentication result:", result);
-        alert(result.status === 'OK' ? 'Authentication successful!' : 'Authentication failed.');
+        const testResultElement = document.getElementById('testResult');
+        if (result.status === 'OK') {
+            testResultElement.textContent = `Authentication successful! Key used: ${result.key_name}`;
+            testResultElement.style.color = 'green';
+        } else {
+            testResultElement.textContent = 'Authentication failed.';
+            testResultElement.style.color = 'red';
+        }
     } catch (error) {
         console.error('Error during authentication:', error);
-        alert('Authentication failed: ' + error.message);
+        const testResultElement = document.getElementById('testResult');
+        testResultElement.textContent = 'Authentication failed: ' + error.message;
+        testResultElement.style.color = 'red';
     }
 }
 
@@ -73,7 +78,6 @@ function ensureArrayBuffer(input) {
         return input;
     }
     if (typeof input === 'string') {
-        // Convert base64url to ArrayBuffer
         const base64 = input.replace(/-/g, '+').replace(/_/g, '/');
         const padLen = (4 - base64.length % 4) % 4;
         const padded = base64 + '='.repeat(padLen);
@@ -89,5 +93,8 @@ function ensureArrayBuffer(input) {
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById('authenticateButton').addEventListener('click', authenticate);
+    const testKeysButton = document.getElementById('testKeysButton');
+    if (testKeysButton) {
+        testKeysButton.addEventListener('click', testKeys);
+    }
 });

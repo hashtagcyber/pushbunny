@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Pushbunny Auth</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/darkmode.js" defer></script>
+    <script type="module" src="/static/js/register.js"></script>
+    <script type="module" src="/static/js/authenticate.js"></script>
+    <script type="module" src="/static/js/edit_key.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ current_user.id }}</h1>
+        <nav>
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider round"></span>
+            </label>
+            <a href="{{ url_for('logout') }}" class="button">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <section class="mfa-keys">
+            <h2>Your MFA Keys</h2>
+            {% if credentials %}
+                <ul class="key-list">
+                {% for cred in credentials %}
+                    <li class="key-item">
+                        <div class="key-info">
+                            <h3 class="key-name" data-credential-id="{{ cred['credential_data'].credential_id.hex() }}">
+                                <span class="key-name-text">{{ cred['friendly_name'] }}</span>
+                                <button class="edit-key-name">Edit</button>
+                            </h3>
+                            <p>Type: {{ cred['key_type'] }}</p>
+                            <p>Registered on: {{ cred['registered_on'] }}</p>
+                            <p>ID: {{ cred['credential_data'].credential_id.hex()[:8] }}...</p>
+                        </div>
+                        <div class="key-actions">
+                            <a href="{{ url_for('remove_key', credential_id=cred['credential_data'].credential_id.hex()) }}" class="button button-danger">Remove</a>
+                        </div>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>You haven't added any MFA keys yet.</p>
+            {% endif %}
+            <button id="registerButton" class="button button-primary">Add New Key</button>
+            <button id="testKeysButton" class="button">Test Keys</button>
+        </section>
+        <div id="testResult" style="margin-top: 20px;"></div>
+    </main>
+</body>
+</html>

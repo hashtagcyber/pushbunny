@@ -3,16 +3,16 @@ import {
     parseCreationOptionsFromJSON,
 } from '/static/js/webauthn-json.browser-ponyfill.js';
 
-async function register() {
+async function addKey() {
     try {
-        console.log("Starting registration/key addition");
+        console.log("Starting key addition");
+        alert("Please ensure your YubiKey or other external security key is connected.");
         
         const createOptions = await fetch('/register/begin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({}),
             credentials: 'same-origin'
         }).then(res => {
             if (!res.ok) {
@@ -26,11 +26,13 @@ async function register() {
 
         console.log("Parsed options:", options);
 
+        // Convert base64 to ArrayBuffer for challenge and user.id if needed
         options.publicKey.challenge = ensureArrayBuffer(options.publicKey.challenge);
         options.publicKey.user.id = ensureArrayBuffer(options.publicKey.user.id);
         if (options.publicKey.excludeCredentials) {
             options.publicKey.excludeCredentials = options.publicKey.excludeCredentials.map(cred => {
                 cred.id = ensureArrayBuffer(cred.id);
+                // Remove transports if it's not present
                 if (!cred.transports) {
                     delete cred.transports;
                 }
@@ -57,15 +59,12 @@ async function register() {
             return res.json();
         });
 
-        console.log("Registration/Key addition result:", result);
-        if (result.status === 'OK') {
-            window.location.reload(); // Reload the page to show the new key
-        } else {
-            throw new Error('Registration/Key addition failed');
-        }
+        console.log("Key addition result:", result);
+        alert(result.status === 'OK' ? 'Key added successfully!' : 'Key addition failed.');
+        window.location.href = '/dashboard';
     } catch (error) {
-        console.error('Error during registration/key addition:', error);
-        alert('Registration/Key addition failed: ' + error.message);
+        console.error('Error during key addition:', error);
+        alert('Key addition failed: ' + error.message);
     }
 }
 
@@ -74,6 +73,7 @@ function ensureArrayBuffer(input) {
         return input;
     }
     if (typeof input === 'string') {
+        // Convert base64url to ArrayBuffer
         const base64 = input.replace(/-/g, '+').replace(/_/g, '/');
         const padLen = (4 - base64.length % 4) % 4;
         const padded = base64 + '='.repeat(padLen);
@@ -89,8 +89,5 @@ function ensureArrayBuffer(input) {
 }
 
 document.addEventListener('DOMContentLoaded', (event) => {
-    const registerButton = document.getElementById('registerButton');
-    if (registerButton) {
-        registerButton.addEventListener('click', register);
-    }
+    document.getElementById('addKeyButton').addEventListener('click', addKey);
 });

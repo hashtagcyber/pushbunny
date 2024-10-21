@@ -1,31 +1,226 @@
-body { 
-    font-family: sans-serif; 
-    line-height: 1.5em; 
-    padding: 2em 10em; 
+:root {
+    --bg-color: #f4f4f4;
+    --text-color: #333;
+    --header-bg: #fff;
+    --main-bg: #fff;
+    --key-item-bg: #f9f9f9;
+    --border-color: #ddd;
+    --button-bg: #3498db;
+    --button-color: #fff;
+    --button-hover: #2980b9;
+    --button-primary-bg: #2ecc71;
+    --button-primary-hover: #27ae60;
+    --button-danger-bg: #e74c3c;
+    --button-danger-hover: #c0392b;
 }
 
-h1, h2 { 
-    color: #325F74; 
+.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #f4f4f4;
+    --header-bg: #2c3e50;
+    --main-bg: #34495e;
+    --key-item-bg: #2c3e50;
+    --border-color: #4a6785;
+    --button-bg: #3498db;
+    --button-color: #fff;
+    --button-hover: #2980b9;
+    --button-primary-bg: #2ecc71;
+    --button-primary-hover: #27ae60;
+    --button-danger-bg: #e74c3c;
+    --button-danger-hover: #c0392b;
 }
 
-a { 
-    color: #0080ac; 
-    font-weight: bold; 
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+    background-color: var(--header-bg);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1, h2, h3 {
+    color: var(--text-color);
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    background-color: var(--main-bg);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: var(--button-bg);
+    color: var(--button-color);
     text-decoration: none;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
 }
 
-a:hover { 
-    text-decoration: underline; 
+.button:hover {
+    background-color: var(--button-hover);
 }
 
-nav ul {
+.button-primary {
+    background-color: var(--button-primary-bg);
+}
+
+.button-primary:hover {
+    background-color: var(--button-primary-hover);
+}
+
+.button-danger {
+    background-color: var(--button-danger-bg);
+}
+
+.button-danger:hover {
+    background-color: var(--button-danger-hover);
+}
+
+.key-list {
     list-style-type: none;
     padding: 0;
 }
 
-nav ul li {
-    display: inline;
-    margin-right: 1em;
+.key-item {
+    background-color: var(--key-item-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Add any other styles that were previously inline */
+.key-info h3 {
+    margin-top: 0;
+}
+
+.key-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.mfa-keys > .button {
+    margin-top: 20px;
+}
+
+/* Dark mode toggle switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-right: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Additional styles for other pages */
+main {
+    padding: 20px;
+}
+
+/* Google Sign-In button styles */
+.g_id_signin {
+    margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .switch {
+        margin-top: 10px;
+    }
+}
+
+/* Add these styles to your existing CSS file */
+.key-name {
+    display: flex;
+    align-items: center;
+}
+
+.edit-key-name,
+.save-key-name {
+    margin-left: 10px;
+    padding: 2px 5px;
+    font-size: 0.8em;
+}
+
+.edit-key-name-input {
+    margin-right: 10px;
+    padding: 2px 5px;
+}

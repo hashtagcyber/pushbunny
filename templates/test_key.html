@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Key - Pushbunny Auth</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script type="module" src="/static/js/authenticate.js"></script>
+    <script src="/static/js/darkmode.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Test Your MFA Key</h1>
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider round"></span>
+        </label>
+    </header>
+    <main>
+        <button id="authenticateButton" class="button button-primary">Test Key</button>
+        <br><br>
+        <a href="{{ url_for('dashboard') }}" class="button">Back to Dashboard</a>
+    </main>
+</body>
+</html>

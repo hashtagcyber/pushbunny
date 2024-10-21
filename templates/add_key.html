@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Key - Pushbunny Auth</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script type="module" src="/static/js/register.js"></script>
+    <script src="/static/js/darkmode.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Add New MFA Key</h1>
+        <label class="switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider round"></span>
+        </label>
+    </header>
+    <main>
+        <button id="registerButton" class="button button-primary">Add New Key</button>
+        <br><br>
+        <a href="{{ url_for('dashboard') }}" class="button">Back to Dashboard</a>
+    </main>
+</body>
+</html>
