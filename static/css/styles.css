@@ -1,0 +1,31 @@
+body { 
+    font-family: sans-serif; 
+    line-height: 1.5em; 
+    padding: 2em 10em; 
+}
+
+h1, h2 { 
+    color: #325F74; 
+}
+
+a { 
+    color: #0080ac; 
+    font-weight: bold; 
+    text-decoration: none;
+}
+
+a:hover { 
+    text-decoration: underline; 
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 1em;
+}
+
+/* Add any other styles that were previously inline */
